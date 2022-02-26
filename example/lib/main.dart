@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                     MaterialPageRoute(
                       builder: (context) {
                         return PlacePicker(
-                          apiKey: APIKeys.apiKey,
+                          apiKey: apiKey,
                           initialPosition: HomePage.kInitialPosition,
                           useCurrentLocation: true,
                           selectInitialPosition: true,
@@ -127,7 +127,9 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               ),
-              selectedPlace == null ? Container() : Text(selectedPlace.formattedAddress ?? ""),
+              selectedPlace == null
+                  ? Container()
+                  : Text(selectedPlace.formattedAddress ?? ""),
             ],
           ),
         ));
