@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -82,7 +84,7 @@ class _HomePageState extends State<HomePage> {
 
                           //usePlaceDetailSearch: true,
                           onPlacePicked: (result) {
-                            print("picked place: ${result.toString()}");
+                            print("picked place: ${result?.state}");
                             selectedPlace = result;
                             Navigator.of(context).pop();
                             setState(() {});

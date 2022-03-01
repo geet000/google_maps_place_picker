@@ -82,7 +82,7 @@ class PickResult {
   static String _getAddressComponent(
           List<AddressComponent> addressComponents, String key) =>
       addressComponents
-          .firstWhereOrNull((comp) => comp.types.contains("street_number"))
+          .firstWhereOrNull((comp) => comp.types.contains(key))
           ?.longName
           .toLowerCase() ??
       '';
