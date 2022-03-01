@@ -83,8 +83,7 @@ class PickResult {
           List<AddressComponent> addressComponents, String key) =>
       addressComponents
           .firstWhereOrNull((comp) => comp.types.contains(key))
-          ?.longName
-          .toLowerCase() ??
+          ?.longName ??
       '';
 
   factory PickResult.fromPlaceDetailResult(PlaceDetails result) {
