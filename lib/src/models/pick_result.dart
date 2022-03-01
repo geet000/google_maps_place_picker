@@ -1,5 +1,6 @@
 import 'package:google_maps_webservice/geocoding.dart';
 import 'package:google_maps_webservice/places.dart';
+import 'package:collection/collection.dart';
 
 class PickResult {
   PickResult({
@@ -25,6 +26,9 @@ class PickResult {
     this.utcOffset,
     this.website,
     this.reviews,
+    this.state = '',
+    this.city = '',
+    this.pincode = '',
   });
 
   final String? placeId;
@@ -32,6 +36,9 @@ class PickResult {
   final String? formattedAddress;
   final List<String>? types;
   final List<AddressComponent>? addressComponents;
+  final String state;
+  final String city;
+  final String pincode;
 
   // Below results will not be fetched if 'usePlaceDetailSearch' is set to false (Defaults to false).
   final String? adrAddress;
@@ -53,16 +60,40 @@ class PickResult {
   final List<Review>? reviews;
 
   factory PickResult.fromGeocodingResult(GeocodingResult result) {
+    final String state = _getAddressComponent(
+        result.addressComponents, "administrative_area_level_1");
+    final String city = _getAddressComponent(
+        result.addressComponents, "administrative_area_level_2");
+    final String pincode =
+        _getAddressComponent(result.addressComponents, "postal_code");
+
     return PickResult(
       placeId: result.placeId,
       geometry: result.geometry,
       formattedAddress: result.formattedAddress,
       types: result.types,
       addressComponents: result.addressComponents,
+      state: state,
+      city: city,
+      pincode: pincode,
     );
   }
 
+  static String _getAddressComponent(
+          List<AddressComponent> addressComponents, String key) =>
+      addressComponents
+          .firstWhereOrNull((comp) => comp.types.contains("street_number"))
+          ?.longName
+          .toLowerCase() ??
+      '';
+
   factory PickResult.fromPlaceDetailResult(PlaceDetails result) {
+    final String state = _getAddressComponent(
+        result.addressComponents, "administrative_area_level_1");
+    final String city = _getAddressComponent(
+        result.addressComponents, "administrative_area_level_2");
+    final String pincode =
+        _getAddressComponent(result.addressComponents, "postal_code");
     return PickResult(
       placeId: result.placeId,
       geometry: result.geometry,
@@ -86,6 +117,9 @@ class PickResult {
       utcOffset: result.utcOffset,
       website: result.website,
       reviews: result.reviews,
+      state: state,
+      city: city,
+      pincode: pincode,
     );
   }
 
