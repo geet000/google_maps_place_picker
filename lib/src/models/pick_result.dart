@@ -88,9 +88,4 @@ class PickResult {
       reviews: result.reviews,
     );
   }
-
-  @override
-  String toString() {
-    return 'PickResult(placeId: $placeId, geometry: $geometry, formattedAddress: $formattedAddress, types: $types, addressComponents: $addressComponents, adrAddress: $adrAddress, formattedPhoneNumber: $formattedPhoneNumber, id: $id, reference: $reference, icon: $icon, name: $name, openingHours: $openingHours, photos: $photos, internationalPhoneNumber: $internationalPhoneNumber, priceLevel: $priceLevel, rating: $rating, scope: $scope, url: $url, vicinity: $vicinity, utcOffset: $utcOffset, website: $website, reviews: $reviews)';
-  }
 }
