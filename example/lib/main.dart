@@ -82,6 +82,7 @@ class _HomePageState extends State<HomePage> {
 
                           //usePlaceDetailSearch: true,
                           onPlacePicked: (result) {
+                            print("picked place: ${result.toString()}");
                             selectedPlace = result;
                             Navigator.of(context).pop();
                             setState(() {});
