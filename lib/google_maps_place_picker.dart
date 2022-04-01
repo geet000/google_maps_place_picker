@@ -6,4 +6,3 @@ export 'src/components/rounded_frame.dart';
 export 'src/place_picker.dart';
 export 'src/models/pick_result.dart';
 export 'src/autocomplete_search.dart';
-export 'src/controllers/autocomplete_search_controller.dart';
