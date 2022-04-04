@@ -61,6 +61,7 @@ class PlacePicker extends StatefulWidget {
     this.automaticallyImplyAppBarLeading = true,
     this.autocompleteOnTrailingWhitespace = false,
     this.hidePlaceDetailsWhenDraggingPin = true,
+    this.useCameraLocationAsCoordinates = false,
   }) : super(key: key);
 
   final String apiKey;
@@ -165,6 +166,8 @@ class PlacePicker extends StatefulWidget {
   final bool autocompleteOnTrailingWhitespace;
 
   final bool hidePlaceDetailsWhenDraggingPin;
+
+  final bool useCameraLocationAsCoordinates;
 
   @override
   _PlacePickerState createState() => _PlacePickerState();
@@ -365,7 +368,7 @@ class _PlacePickerState extends State<PlacePicker> {
   }
 
   Widget _buildMapWithLocation() {
-    if (widget.useCurrentLocation != null && widget.useCurrentLocation!) {
+    if (widget.useCurrentLocation!) {
       return FutureBuilder(
           future: provider!
               .updateCurrentLocation(widget.forceAndroidLocationManager),
@@ -373,16 +376,11 @@ class _PlacePickerState extends State<PlacePicker> {
             if (snap.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else {
-              if (widget.initialPosition.latitude == 0 &&
-                  widget.initialPosition.longitude == 0) {
-                if (provider!.currentPosition == null) {
-                  return _buildMap(widget.initialPosition);
-                } else {
-                  return _buildMap(LatLng(provider!.currentPosition!.latitude,
-                      provider!.currentPosition!.longitude));
-                }
-              } else {
+              if (provider!.currentPosition == null) {
                 return _buildMap(widget.initialPosition);
+              } else {
+                return _buildMap(LatLng(provider!.currentPosition!.latitude,
+                    provider!.currentPosition!.longitude));
               }
             }
           });
@@ -436,6 +434,7 @@ class _PlacePickerState extends State<PlacePicker> {
         searchBarController.reset();
       },
       onPlacePicked: widget.onPlacePicked,
+      useCameraLocationAsCoordinates: widget.useCameraLocationAsCoordinates,
     );
   }
 }
