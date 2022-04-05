@@ -434,7 +434,6 @@ class _PlacePickerState extends State<PlacePicker> {
         searchBarController.reset();
       },
       onPlacePicked: widget.onPlacePicked,
-      useCameraLocationAsCoordinates: widget.useCameraLocationAsCoordinates,
     );
   }
 }
